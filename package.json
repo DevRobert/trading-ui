@@ -1,0 +1,40 @@
+{
+  "name": "trading-ui",
+  "version": "1.0.0",
+  "description": "User interface for the trading application",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --config webpack.config.client.js",
+    "start": "webpack-dev-server --config webpack.config.client.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DevRobert/trading-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DevRobert/trading-ui/issues"
+  },
+  "homepage": "https://github.com/DevRobert/trading-ui#readme",
+  "devDependencies": {
+    "@types/react": "^16.3.11",
+    "@types/react-dom": "^16.0.5",
+    "@types/react-hot-loader": "^3.0.6",
+    "@types/webpack-env": "^1.13.6",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.6.1",
+    "babel-preset-react": "^6.24.1",
+    "express": "^4.16.3",
+    "typescript": "^2.8.1",
+    "webpack": "^4.5.0",
+    "webpack-cli": "^2.0.14",
+    "webpack-dev-server": "^3.1.3"
+  },
+  "dependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2",
+    "react-hot-loader": "^4.0.1"
+  }
+}
