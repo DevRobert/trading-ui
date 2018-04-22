@@ -1,21 +1,9 @@
-html, body {
-    font-family: sans-serif;
-    margin: 0;
-    padding: 0;
-}
-
-.clear {
-    clear: both;
-}
-
-.global-container {
-    margin: auto;
-    max-width: 1000px;
-    padding: 20px;
+.header {
+    margin-top: 10px;
 }
 
 .header .logo {
-    float: left;    
+    float: left;
 }
 
 .header .text {
