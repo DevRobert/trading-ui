@@ -4,7 +4,7 @@ class RegisterTransactionForm extends React.Component {
     render() {
         return (
             <div>
-                <h1>Register transaction</h1>
+                <h1>Register Transaction</h1>
 
                 <form>
                     <div className="form-group">

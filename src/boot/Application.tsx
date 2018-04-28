@@ -1,11 +1,10 @@
 import * as React from 'react'
 
 import 'bootstrap/dist/css/bootstrap.css'
-
-import AccountPositionList from '../components/account/AccountPositionList'
-import AccountTransactionList from '../components/account/AccountTransactionList'
-import RegisterTransactionForm from '../components/account/RegisterTransactionForm'
-import ScoringList from '../components/scoring/ScoringList'
+import { Route, Switch, NavLink, Redirect } from 'react-router-dom'
+import OverviewPage from '../components/overview/OverviewPage'
+import AccountPage from '../components/account/AccountPage';
+import ScoringList from '../containers/scoring/ScoringList'
 
 export class Application extends React.Component {
     render() {
@@ -19,23 +18,25 @@ export class Application extends React.Component {
 
                 <nav className="navbar navbar-default">
                     <ul className="nav navbar-nav">
-                        <li><a href="">Overview</a></li>
-                        <li><a href="">Strategy</a></li>
-                        <li><a href="">Account</a></li>
-                        <li><a href="">Scoring</a></li>
-                        <li><a href="">Trades</a></li>
-                        <li><a href="">Market data</a></li>
-                        <li><a href="">Tax report</a></li>
+                        <li><NavLink to="/">Overview</NavLink></li>
+                        {/* <li><NavLink to="/strategy">Strategy</NavLink></li> */}
+                        <li><NavLink to="/account/">Account</NavLink></li>
+                        <li><NavLink to="/scoring">Scoring</NavLink></li>
+                        {/*<li><NavLink to="/trades/">Trades</NavLink></li>
+                        <li><NavLink to="/market">Market data</NavLink></li>
+                        <li><NavLink to="/tax">Tax report</NavLink></li>*/}
                     </ul>
                 </nav>
 
                 <div className="body">
-                    <AccountPositionList/>
-                    <AccountTransactionList/>
-                    <RegisterTransactionForm/>
-                    <ScoringList/>
+                    <Switch>
+                        <Route path="/overview" component={OverviewPage}/>
+                        <Route path="/account/*" component={AccountPage}/>
+                        <Route path="/scoring" component={ScoringList}/>
+                        <Redirect from="/" to="/overview"/>
+                    </Switch>
                 </div>
             </div>
-        );
+        )
     }
 }

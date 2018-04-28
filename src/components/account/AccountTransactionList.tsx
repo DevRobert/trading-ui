@@ -1,29 +1,25 @@
 import * as React from 'react'
 
+interface AccountTransactionListProps {
+    transactions: Array<TransactionProps>
+}
+
+interface TransactionProps {
+    date: string,
+    type: string,
+    isin: number,
+    name: string,
+    quantity: number,
+    totalPrice: number,
+    commission: number,
+    marketPrice: number
+}
+
 class AccountTransactionList extends React.Component {
+    props: AccountTransactionListProps
+
     render() {
-        const transactions = [
-            {
-                date: '2018-04-23',
-                type: 'Buy',
-                isin: 'DE000BAY0017',
-                name: 'Bayer',
-                quantity: 1000,
-                marketPrice: 2132.23232,
-                totalPrice: 23432432.32424,
-                commission: 10.0
-            },
-            {
-                date: '2018-04-24',
-                type: 'Sell',
-                isin: 'DE000BAY0017',
-                name: 'Bayer',
-                quantity: 1000,
-                marketPrice: 2132.23232,
-                totalPrice: 23432432.32424,
-                commission: 10.0
-            }
-        ]
+        const transactions = this.props.transactions
 
         const transactionElements = transactions.map(transaction => {
             return (

@@ -2,7 +2,8 @@ const webpack = require('webpack')
 const path = require('path')
 
 module.exports = {
-    devtool: 'inline-source-map',
+    // devtool: 'inline-source-map',
+    devtool: 'inline-eval-cheap-source-map',
     entry: [
         'react-hot-loader/patch',
         'webpack-dev-server/client?http://localhost:3001',

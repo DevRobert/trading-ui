@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "build": "webpack --config webpack.config.client.js",
-    "start": "webpack-dev-server --config webpack.config.client.js",
+    "start:dev": "cross-env NODE_ENV=development webpack-dev-server --config webpack.config.client.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,9 +19,12 @@
   },
   "homepage": "https://github.com/DevRobert/trading-ui#readme",
   "devDependencies": {
+    "@types/history": "^4.6.2",
     "@types/react": "^16.3.11",
     "@types/react-dom": "^16.0.5",
     "@types/react-hot-loader": "^3.0.6",
+    "@types/react-redux": "^5.0.19",
+    "@types/react-router-dom": "^4.2.6",
     "@types/webpack-env": "^1.13.6",
     "babel-loader": "^7.1.4",
     "babel-preset-env": "^1.6.1",
@@ -29,6 +32,7 @@
     "css-loader": "^0.28.11",
     "express": "^4.16.3",
     "file-loader": "^1.1.11",
+    "redux-thunk": "^2.2.0",
     "style-loader": "^0.21.0",
     "typescript": "^2.8.1",
     "url-loader": "^1.0.1",
@@ -38,12 +42,13 @@
   },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "cross-env": "^5.1.4",
+    "history": "^4.7.2",
     "react": "^16.3.2",
     "react-dom": "^16.3.2",
     "react-hot-loader": "^4.0.1",
     "react-redux": "^5.0.7",
     "react-router-dom": "^4.2.2",
-    "react-router-redux": "^4.0.8",
     "redux": "^4.0.0"
   }
 }
