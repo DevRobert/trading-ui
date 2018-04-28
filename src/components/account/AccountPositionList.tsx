@@ -128,5 +128,4 @@ class AccountPositionList extends React.Component {
     }
 }
 
-
 export default AccountPositionList

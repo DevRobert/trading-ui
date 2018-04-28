@@ -18,22 +18,22 @@ export class Application extends React.Component {
 
                 <nav className="navbar navbar-default">
                     <ul className="nav navbar-nav">
-                        <li><NavLink to="/">Overview</NavLink></li>
-                        {/* <li><NavLink to="/strategy">Strategy</NavLink></li> */}
+                        {/*<li><NavLink to="/">Overview</NavLink></li>*/}
+                        {/*<li><NavLink to="/strategy">Strategy</NavLink></li>*/}
                         <li><NavLink to="/account/">Account</NavLink></li>
                         <li><NavLink to="/scoring">Scoring</NavLink></li>
-                        {/*<li><NavLink to="/trades/">Trades</NavLink></li>
-                        <li><NavLink to="/market">Market data</NavLink></li>
-                        <li><NavLink to="/tax">Tax report</NavLink></li>*/}
+                        {/*<li><NavLink to="/trades/">Trades</NavLink></li>*/}
+                        {/*<li><NavLink to="/market">Market data</NavLink></li>*/}
+                        {/*<li><NavLink to="/tax">Tax report</NavLink></li>*/}
                     </ul>
                 </nav>
 
                 <div className="body">
                     <Switch>
-                        <Route path="/overview" component={OverviewPage}/>
+                        {/*<Route path="/overview" component={OverviewPage}/>*/}
                         <Route path="/account/*" component={AccountPage}/>
                         <Route path="/scoring" component={ScoringList}/>
-                        <Redirect from="/" to="/overview"/>
+                        <Redirect from="/" to="/account/"/>
                     </Switch>
                 </div>
             </div>
