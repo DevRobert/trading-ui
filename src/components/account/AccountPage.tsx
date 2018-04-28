@@ -11,7 +11,7 @@ class AccountPage extends React.Component {
                 <ul className="nav nav-tabs">
                     <li><NavLink to="/account/positions/">Positions</NavLink></li>
                     <li><NavLink to="/account/transactions/">Transactions</NavLink></li>
-                    <li><NavLink to="/account/registerTransaction">Register transaction</NavLink></li>
+                    <li><NavLink to="/account/registerTransaction">Register Transaction</NavLink></li>
                 </ul>
 
                 <Switch>
