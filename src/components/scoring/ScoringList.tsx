@@ -1,20 +1,39 @@
 import * as React from 'react'
 
 interface ScoringListProps {
-    scores: Array<ScoreProps>
+    isLoading: boolean,
+    errorMessage: string,
+    scores: Array<ScoreProps>,
+    loadScores: () => void
 }
 
 interface ScoreProps {
     isin: string,
     name: string,
     score: number,
-    text: string
+    comment: string
 }
 
 class ScoringList extends React.Component {
     props: ScoringListProps
 
+    componentWillMount() {
+        this.props.loadScores()
+    }
+
     render() {
+        if(this.props.isLoading) {
+            return (
+                <p className="alert alert-info">Loading scoring...</p>
+            )
+        }
+
+        if(this.props.errorMessage) {
+            return (
+                <p className="alert alert-danger">{this.props.errorMessage}</p>
+            )
+        }
+
         const scores = this.props.scores
 
         const scoreElements = scores.map(score => {
@@ -28,7 +47,7 @@ class ScoringList extends React.Component {
                             maximumFractionDigits: 4
                         }).format(score.score)}
                     </td>
-                    <td>{score.text}</td>
+                    <td style={{ whiteSpace: "pre-line" }}>{score.comment}</td>
                 </tr>
             )
         })
@@ -47,7 +66,7 @@ class ScoringList extends React.Component {
                             <th>ISIN</th>
                             <th>Name</th>
                             <th>Score</th>
-                            <th>Description</th>
+                            <th>Comment</th>
                         </tr>
                         {scoreElements}
                     </thead>
