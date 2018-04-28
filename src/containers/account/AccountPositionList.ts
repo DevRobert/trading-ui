@@ -6,8 +6,8 @@ const mapStateToProps = (state: any) => {
     return {
         positions: state.account.positions.positions,
         summary: state.account.positions.summary,
-        isLoading: state.account.isLoading,
-        errorMessage: state.account.errorMessage        
+        isLoading: state.account.positions.isLoading,
+        errorMessage: state.account.positions.errorMessage        
     }
 }
 
