@@ -1,7 +1,10 @@
 import * as React from 'react'
 
 interface AccountTransactionListProps {
-    transactions: Array<TransactionProps>
+    transactions: Array<TransactionProps>,
+    isLoading: boolean,
+    errorMessage: string,
+    loadAccountTransactions: () => void
 }
 
 interface TransactionProps {
@@ -18,7 +21,23 @@ interface TransactionProps {
 class AccountTransactionList extends React.Component {
     props: AccountTransactionListProps
 
+    componentDidMount() {
+        this.props.loadAccountTransactions()
+    }
+    
     render() {
+        if(this.props.isLoading) {
+            return (
+                <p className="alert alert-info">Loading account transactions...</p>
+            )
+        }
+
+        if(this.props.errorMessage) {
+            return (
+                <p className="alert alert-danger">{this.props.errorMessage}</p>
+            )
+        }
+
         const transactions = this.props.transactions
 
         const transactionElements = transactions.map(transaction => {

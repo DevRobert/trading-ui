@@ -2,7 +2,10 @@ import * as React from 'react'
 
 interface AccountPositionListProps {
     positions: Array<PositionProps>,
-    summary: SummaryProps
+    summary: SummaryProps,
+    isLoading: boolean,
+    errorMessage: string,
+    loadAccountPositions: () => void
 }
 
 interface PositionProps {
@@ -23,7 +26,23 @@ interface SummaryProps {
 class AccountPositionList extends React.Component {
     props: AccountPositionListProps
 
+    componentDidMount() {
+        this.props.loadAccountPositions()
+    }
+
     render() {
+        if(this.props.isLoading) {
+            return (
+                <p className="alert alert-info">Loading account positions...</p>
+            )
+        }
+
+        if(this.props.errorMessage) {
+            return (
+                <p className="alert alert-danger">{this.props.errorMessage}</p>
+            )
+        }
+
         const positions = this.props.positions
         const summary = this.props.summary
 

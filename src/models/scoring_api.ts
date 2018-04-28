@@ -1,15 +1,6 @@
+import validateResponse from './validate_response'
+
 const baseUri = 'http://localhost:8080/api'
-
-async function validateResponse(response: Response) {
-    if(response.ok) {
-        return
-    }
-
-    const responseData = await response.json()
-
-    const error = new Error(responseData)
-    throw error
-}
 
 export async function getScores() {
     const requestUri = baseUri + '/scoring'

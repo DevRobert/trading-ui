@@ -1,37 +1,59 @@
+import { FETCH_ACCOUNT_POSITIONS_REQUESTED, FETCH_ACCOUNT_POSITIONS_SUCCEEDED, FETCH_ACCOUNT_POSITIONS_FAILED } from "../../actions";
+
 const defaultState = {
     positions: [
         {
-            isin: "DE0008404005",
-            name: "Allianz",
-            quantity: 3243,
-            marketPrice: 1234.23213,
-            totalPrice: 43242342.1321231
-        },
-        {
-            isin: "DE000BAY0017",
-            name: "Bayer",
+            isin: "DE0000000000",
+            name: "Instrument name",
             quantity: 0,
-            marketPrice: 213.123123,
+            marketPrice: 0,
             totalPrice: 0
-        },
-        {
-            isin: "DE0008430026",
-            name: "Münchener Rückversicherungs-Gesellschaft",
-            quantity: 10,
-            marketPrice: 123.21313,
-            totalPrice: 1232.13130
         }
     ],
     summary: {
-        totalStocksQuantity: 32323,
-        totalStocksPrice: 234324.2342,
-        availableMoney: 500.0,
-        totalBalance: 23233.2323
-    }
+        totalStocksQuantity: 0,
+        totalStocksPrice: 0,
+        availableMoney: 0,
+        totalBalance: 0
+    },
+    isLoading: false,
+    errorMessage: ""
 }
 
 const positionsReducer = (state = defaultState, action: any) => {
-    return state
+    switch(action.type) {
+        case FETCH_ACCOUNT_POSITIONS_REQUESTED:
+            return {
+                ...state,
+                positions: [],
+                summary: {
+                    totalStocksQuantity: 0,
+                    totalStocksPrice: 0,
+                    availableMoney: 0,
+                    totalBalance: 0
+                },
+                isLoading: true,
+                errorMessage: null,
+            }
+
+        case FETCH_ACCOUNT_POSITIONS_SUCCEEDED:
+            return {
+                ...state,
+                positions: action.positions,
+                summary: action.summary,
+                isLoading: false
+            }
+
+        case FETCH_ACCOUNT_POSITIONS_FAILED:
+            return {
+                ...state,
+                isLoading: false,
+                errorMessage: action.error.message
+            }
+
+        default:
+            return state
+    }
 }
 
 export default positionsReducer

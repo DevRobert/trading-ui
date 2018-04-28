@@ -1,30 +1,49 @@
+import { FETCH_ACCOUNT_TRANSACTIONS_REQUESTED, FETCH_ACCOUNT_TRANSACTIONS_SUCCEEDED, FETCH_ACCOUNT_TRANSACTIONS_FAILED } from "../../actions";
+
 const defaultState = {
     transactions: [
         {
             date: '2018-04-23',
             type: 'Buy',
-            isin: 'DE000BAY0017',
-            name: 'Bayer',
-            quantity: 1000,
-            marketPrice: 2132.23232,
-            totalPrice: 23432432.32424,
-            commission: 10.0
-        },
-        {
-            date: '2018-04-24',
-            type: 'Sell',
-            isin: 'DE000BAY0017',
-            name: 'Bayer',
-            quantity: 1000,
-            marketPrice: 2132.23232,
-            totalPrice: 23432432.32424,
-            commission: 10.0
+            isin: 'DE0000000000',
+            name: 'Instrument name',
+            quantity: 0,
+            marketPrice: 0,
+            totalPrice: 0,
+            commission: 0
         }
-    ]    
+    ],
+    isLoading: false,
+    errorMessage: ""
 }
 
 const transactionsReducer = (state = defaultState, action: any) => {
-    return state
+    switch(action.type) {
+        case FETCH_ACCOUNT_TRANSACTIONS_REQUESTED:
+            return {
+                ...state,
+                transactions: null,
+                isLoading: true,
+                errorMessage: null
+            }
+        
+        case FETCH_ACCOUNT_TRANSACTIONS_SUCCEEDED:
+            return {
+                ...state,
+                transactions: action.transactions,
+                isLoading: false
+            }
+
+        case FETCH_ACCOUNT_TRANSACTIONS_FAILED:
+            return {
+                ...state,
+                isLoading: false,
+                errorMessage: action.error.message
+            }
+
+        default:
+            return state
+    }
 }
 
 export default transactionsReducer

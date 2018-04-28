@@ -14,7 +14,9 @@ const defaultState = {
             score: 0.00020020,
             text: 'Do not buy'
         }
-    ]
+    ],
+    isLoading: false,
+    errorMessage: ""
 }
 
 const scoringReducer = (state = defaultState, action: any) => {
@@ -22,16 +24,16 @@ const scoringReducer = (state = defaultState, action: any) => {
         case FETCH_SCORES_REQUESTED:
             return {
                 ...state,
-                isLoading: true,
                 scores: [],
+                isLoading: true,
                 errorMessage: undefined
             }
 
         case FETCH_SCORES_SUCCEEDED:
             return {
                 ...state,
-                isLoading: false,
-                scores: action.scores
+                scores: action.scores,
+                isLoading: false
             }
         
         case FETCH_SCORES_FAILED:
