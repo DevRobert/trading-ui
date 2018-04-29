@@ -9,7 +9,7 @@ interface AccountTransactionListProps {
 
 interface TransactionProps {
     date: string,
-    type: string,
+    transactionType: string,
     isin: number,
     name: string,
     quantity: number,
@@ -44,7 +44,7 @@ class AccountTransactionList extends React.Component {
             return (
                 <tr>
                     <td>{transaction.date}</td>
-                    <td>{transaction.type}</td>
+                    <td>{transaction.transactionType}</td>
                     <td>{transaction.isin}</td>
                     <td>{transaction.name}</td>
                     <td className="text-right">
