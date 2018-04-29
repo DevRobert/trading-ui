@@ -57,7 +57,7 @@ class ScoringList extends React.Component {
                 <h1>
                     Scoring
                     <br/>
-                    <small>as of 00/00/0000</small>
+                    <small>Market price history as of 00/00/0000</small>
                 </h1>
 
                 <table className="table table-striped">

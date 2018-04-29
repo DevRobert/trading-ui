@@ -7,12 +7,12 @@ const defaultState = {
             name: "Instrument name",
             quantity: 0,
             marketPrice: 0,
-            totalPrice: 0
+            totalMarketPrice: 0
         }
     ],
     summary: {
         totalStocksQuantity: 0,
-        totalStocksPrice: 0,
+        totalStocksMarketPrice: 0,
         availableMoney: 0,
         totalBalance: 0
     },
@@ -28,7 +28,7 @@ const positionsReducer = (state = defaultState, action: any) => {
                 positions: [],
                 summary: {
                     totalStocksQuantity: 0,
-                    totalStocksPrice: 0,
+                    totalStocksMarketPrice: 0,
                     availableMoney: 0,
                     totalBalance: 0
                 },

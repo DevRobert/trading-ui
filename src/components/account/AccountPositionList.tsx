@@ -13,13 +13,13 @@ interface PositionProps {
     name: string,
     quantity: number,
     marketPrice: number,
-    totalPrice: number
+    totalMarketPrice: number
 }
 
 interface SummaryProps {
     totalStocksQuantity: number,
     availableMoney: number,
-    totalStocksPrice: number,
+    totalStocksMarketPrice: number,
     totalBalance: number
 }
 
@@ -71,7 +71,7 @@ class AccountPositionList extends React.Component {
                             currency: 'EUR',
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
-                        }).format(position.totalPrice)}
+                        }).format(position.totalMarketPrice)}
                     </td>
                 </tr>
             )
@@ -79,7 +79,11 @@ class AccountPositionList extends React.Component {
 
         return (
             <div>
-                <h1>Account Positions</h1>
+                <h1>
+                    Account Positions
+                    <br/>
+                    <small>Market prices as of 00/00/0000</small>
+                </h1>
 
                 <table className="table table-striped">
                     <thead>
@@ -109,7 +113,7 @@ class AccountPositionList extends React.Component {
                                     currency: 'EUR',
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
-                                }).format(summary.totalStocksPrice)}
+                                }).format(summary.totalStocksMarketPrice)}
                             </td>
                         </tr>
                         <tr>
