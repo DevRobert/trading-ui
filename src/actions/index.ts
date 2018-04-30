@@ -10,6 +10,11 @@ export const FETCH_SCORES_REQUESTED = 'FETCH_SCORES_REQUESTED'
 export const FETCH_SCORES_SUCCEEDED = 'FETCH_SCORES_SUCCEEDED'
 export const FETCH_SCORES_FAILED = 'FETCH_SCORES_FAILED'
 
+export const UPDATE_REGISTER_TRANSACTION_FIELDS = 'UPDATE_REGISTER_TRANSACTION_FIELDS'
+export const REGISTER_TRANSACTION_REQUESTED = 'REGISTER_TRANSACTION_REQUESTED'
+export const REGISTER_TRANSACTION_SUCCEEDED = 'REGISTER_TRANSACTION_SUCCEEDED'
+export const REGISTER_TRANSACTION_FAILED = 'REGISTER_TRANSACTION_FAILED'
+
 import * as AccountApi from '../models/account_api'
 import * as ScoringApi from '../models/scoring_api'
 
@@ -107,5 +112,48 @@ export function fetchScores() {
         }).catch(error => [
             dispatch(fetchScoresFailed(error))
         ])
+    }
+}
+
+export function updateRegisterTransactionFields(fields: any) {
+    return {
+        type: UPDATE_REGISTER_TRANSACTION_FIELDS,
+        fields
+    }
+}
+
+function registerTransactionRequested() {
+    return {
+        type: REGISTER_TRANSACTION_REQUESTED
+    }
+}
+
+function registerTransactionSucceeded(transactionId: number) {
+    return {
+        type: REGISTER_TRANSACTION_SUCCEEDED,
+        transactionId
+    }
+}
+
+function registerTransactionFailed(error: any) {
+    return {
+        type: REGISTER_TRANSACTION_FAILED,
+        error
+    }
+}
+
+export function registerTransaction() {
+    return (dispatch: any, getState: any) => {
+        dispatch(registerTransactionRequested())
+
+        const transation = {
+            ...getState().account.registerTransaction.fields
+        }
+
+        AccountApi.registerTransaction(transation).then(transationId => {
+            dispatch(registerTransactionSucceeded(transationId))
+        }).catch(error => {
+            dispatch(registerTransactionFailed(error))
+        })
     }
 }

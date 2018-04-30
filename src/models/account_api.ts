@@ -12,7 +12,7 @@ export async function getAccountPositions() {
         })
     })
 
-    validateResponse(response)
+    await validateResponse(response)
 
     return response.json()
 }
@@ -27,7 +27,27 @@ export async function getAccountTransactions() {
         })
     })
 
-    validateResponse(response)
+    await validateResponse(response)
 
     return response.json()
+}
+
+export async function registerTransaction(transaction: any): Promise<number> {
+    const requestUri = baseUri + '/account/transactions/'
+    
+    const response = await fetch(requestUri, {
+        method: 'POST',
+        headers: new Headers({
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+        }),
+        body: JSON.stringify({
+            ...transaction
+        })
+    })
+
+    await validateResponse(response)
+
+    const responseData = await response.json()
+    return responseData.transactionId
 }

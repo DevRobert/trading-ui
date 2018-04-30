@@ -5,6 +5,5 @@ export default async function validateResponse(response: Response) {
 
     const responseData = await response.json()
 
-    const error = new Error(responseData)
-    throw error
+    throw new Error(responseData.message)
 }
