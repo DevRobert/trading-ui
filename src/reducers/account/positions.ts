@@ -16,6 +16,7 @@ const defaultState = {
         availableMoney: 0,
         totalBalance: 0
     },
+    marketPricesDate: "",
     isLoading: false,
     errorMessage: ""
 }
@@ -32,6 +33,7 @@ const positionsReducer = (state = defaultState, action: any) => {
                     availableMoney: 0,
                     totalBalance: 0
                 },
+                marketPricesDate: "",
                 isLoading: true,
                 errorMessage: null,
             }
@@ -41,6 +43,7 @@ const positionsReducer = (state = defaultState, action: any) => {
                 ...state,
                 positions: action.positions,
                 summary: action.summary,
+                marketPricesDate: action.marketPricesDate,
                 isLoading: false
             }
 

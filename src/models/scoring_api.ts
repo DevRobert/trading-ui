@@ -12,7 +12,7 @@ export async function getScores() {
         })
     })
 
-    validateResponse(response)
+    await validateResponse(response)
 
     return response.json()
 }

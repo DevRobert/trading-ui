@@ -15,6 +15,7 @@ const defaultState = {
             text: 'Do not buy'
         }
     ],
+    marketPricesDate: "",
     isLoading: false,
     errorMessage: ""
 }
@@ -25,6 +26,7 @@ const scoringReducer = (state = defaultState, action: any) => {
             return {
                 ...state,
                 scores: [],
+                marketPricesDate: "",
                 isLoading: true,
                 errorMessage: undefined
             }
@@ -33,6 +35,7 @@ const scoringReducer = (state = defaultState, action: any) => {
             return {
                 ...state,
                 scores: action.scores,
+                marketPricesDate: action.marketPricesDate,
                 isLoading: false
             }
         

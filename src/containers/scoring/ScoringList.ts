@@ -5,6 +5,7 @@ import { fetchScores } from '../../actions'
 const mapStateToProps = (state: any) => {
     return {
         scores: state.scoring.scores,
+        marketPricesDate: state.scoring.marketPricesDate,
         isLoading: state.scoring.isLoading,
         errorMessage: state.scoring.errorMessage
     }

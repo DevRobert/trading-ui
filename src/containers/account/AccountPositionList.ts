@@ -6,6 +6,7 @@ const mapStateToProps = (state: any) => {
     return {
         positions: state.account.positions.positions,
         summary: state.account.positions.summary,
+        marketPricesDate: state.account.positions.marketPricesDate,
         isLoading: state.account.positions.isLoading,
         errorMessage: state.account.positions.errorMessage        
     }

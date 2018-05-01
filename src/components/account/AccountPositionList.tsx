@@ -2,6 +2,7 @@ import * as React from 'react'
 
 interface AccountPositionListProps {
     positions: Array<PositionProps>,
+    marketPricesDate: string,
     summary: SummaryProps,
     isLoading: boolean,
     errorMessage: string,
@@ -82,7 +83,7 @@ class AccountPositionList extends React.Component {
                 <h1>
                     Account Positions
                     <br/>
-                    <small>Market prices as of 00/00/0000</small>
+                    <small>Market prices as of {this.props.marketPricesDate}</small>
                 </h1>
 
                 <table className="table table-striped">

@@ -4,6 +4,7 @@ interface ScoringListProps {
     isLoading: boolean,
     errorMessage: string,
     scores: Array<ScoreProps>,
+    marketPricesDate: string,
     loadScores: () => void
 }
 
@@ -57,7 +58,7 @@ class ScoringList extends React.Component {
                 <h1>
                     Scoring
                     <br/>
-                    <small>Market price history as of 00/00/0000</small>
+                    <small>Market price history as of {this.props.marketPricesDate}</small>
                 </h1>
 
                 <table className="table table-striped">

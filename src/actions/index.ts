@@ -24,11 +24,12 @@ function fetchAccountPositionsRequested() {
     }
 }
 
-function fetchAccountPositionsSucceeded(positions: any, summary: any) {
+function fetchAccountPositionsSucceeded(positions: any, summary: any, marketPricesDate: string) {
     return {
         type: FETCH_ACCOUNT_POSITIONS_SUCCEEDED,
         positions,
-        summary
+        summary,
+        marketPricesDate
     }
 }
 
@@ -44,7 +45,7 @@ export function fetchAccountPositions() {
         dispatch(fetchAccountPositionsRequested())
 
         AccountApi.getAccountPositions().then(response => {
-            dispatch(fetchAccountPositionsSucceeded(response.positions, response.summary))
+            dispatch(fetchAccountPositionsSucceeded(response.positions, response.summary, response.marketPricesDate))
         }).catch(error => {
             dispatch(fetchAccountPositionsFailed(error))
         })
@@ -89,10 +90,11 @@ function fetchScoresRequested() {
     }
 }
 
-function fetchScoresSucceeded(scores: any) {
+function fetchScoresSucceeded(scores: any, marketPricesDate: string) {
     return {
         type: FETCH_SCORES_SUCCEEDED,
-        scores
+        scores,
+        marketPricesDate
     }
 }
 
@@ -108,7 +110,7 @@ export function fetchScores() {
         dispatch(fetchScoresRequested())
 
         ScoringApi.getScores().then(response => {
-            dispatch(fetchScoresSucceeded(response.scores))
+            dispatch(fetchScoresSucceeded(response.scores, response.marketPricesDate))
         }).catch(error => [
             dispatch(fetchScoresFailed(error))
         ])
