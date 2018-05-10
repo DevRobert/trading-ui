@@ -105,11 +105,11 @@ function fetchScoresFailed(error: any) {
     }
 }
 
-export function fetchScores() {
+export function fetchScores(type: string) {
     return (dispatch: any) => {
         dispatch(fetchScoresRequested())
 
-        ScoringApi.getScores().then(response => {
+        ScoringApi.getScores(type).then(response => {
             dispatch(fetchScoresSucceeded(response.scores, response.marketPricesDate))
         }).catch(error => [
             dispatch(fetchScoresFailed(error))

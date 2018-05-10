@@ -15,9 +15,14 @@ const defaultState = {
             text: 'Do not buy'
         }
     ],
-    marketPricesDate: "",
+    marketPricesDate: '',
     isLoading: false,
-    errorMessage: ""
+    errorMessage: '',
+    selectedType: 'buy',
+    availableTypes: [
+        { name: 'buy', title: 'Buy Stocks' },
+        { name: 'sell', title: 'Sell Stocks' }
+    ]
 }
 
 const scoringReducer = (state = defaultState, action: any) => {

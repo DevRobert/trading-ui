@@ -1,11 +1,21 @@
 import * as React from 'react'
+import { NavLink } from 'react-router-dom'
+import ScoringNavigation from './ScoringNavigation';
+import ScoringTable from './ScoringTable';
 
-interface ScoringListProps {
+export interface ScoringListProps {
     isLoading: boolean,
     errorMessage: string,
     scores: Array<ScoreProps>,
     marketPricesDate: string,
-    loadScores: () => void
+    availableTypes: Array<TypeProps>,
+    selectedType: string,
+    match: {
+        params: {
+            type: string
+        }
+    },
+    loadScores: (type: string) => void
 }
 
 interface ScoreProps {
@@ -15,63 +25,31 @@ interface ScoreProps {
     comment: string
 }
 
+interface TypeProps {
+    name: string,
+    title: string
+}
+
 class ScoringList extends React.Component {
     props: ScoringListProps
 
     componentWillMount() {
-        this.props.loadScores()
+        this.props.loadScores(this.props.match.params.type)
+    }
+
+    componentWillReceiveProps(nextProps: ScoringListProps) {
+        if(nextProps.match.params.type !== this.props.match.params.type) {
+            this.props.loadScores(nextProps.match.params.type)
+        }
     }
 
     render() {
-        if(this.props.isLoading) {
-            return (
-                <p className="alert alert-info">Loading scoring...</p>
-            )
-        }
-
-        if(this.props.errorMessage) {
-            return (
-                <p className="alert alert-danger">{this.props.errorMessage}</p>
-            )
-        }
-
-        const scores = this.props.scores
-
-        const scoreElements = scores.map(score => {
-            return (
-                <tr>
-                    <td>{score.isin}</td>
-                    <td>{score.name}</td>
-                    <td>
-                        {new Intl.NumberFormat('en-GB', {
-                            minimumFractionDigits: 4,
-                            maximumFractionDigits: 4
-                        }).format(score.score)}
-                    </td>
-                    <td style={{ whiteSpace: "pre-line" }}>{score.comment}</td>
-                </tr>
-            )
-        })
+        const props = this.props
 
         return (
             <div>
-                <h1>
-                    Scoring
-                    <br/>
-                    <small>Market price history as of {this.props.marketPricesDate}</small>
-                </h1>
-
-                <table className="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>ISIN</th>
-                            <th>Name</th>
-                            <th>Score</th>
-                            <th>Comment</th>
-                        </tr>
-                        {scoreElements}
-                    </thead>
-                </table>
+                <ScoringNavigation {...props}/>
+                <ScoringTable {...props} />
             </div>
         )
     }

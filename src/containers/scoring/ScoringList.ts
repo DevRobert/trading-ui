@@ -7,14 +7,16 @@ const mapStateToProps = (state: any) => {
         scores: state.scoring.scores,
         marketPricesDate: state.scoring.marketPricesDate,
         isLoading: state.scoring.isLoading,
-        errorMessage: state.scoring.errorMessage
+        errorMessage: state.scoring.errorMessage,
+        availableTypes: state.scoring.availableTypes,
+        selectedType: state.scoring.selectedType
     }
 }
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        loadScores: function() {
-            dispatch(fetchScores())
+        loadScores: function(type: string) {
+            dispatch(fetchScores(type))
         }
     }
 }

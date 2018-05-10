@@ -21,7 +21,7 @@ export class Application extends React.Component {
                         {/*<li><NavLink to="/">Overview</NavLink></li>*/}
                         {/*<li><NavLink to="/strategy">Strategy</NavLink></li>*/}
                         <li><NavLink to="/account/">Account</NavLink></li>
-                        <li><NavLink to="/scoring">Scoring</NavLink></li>
+                        <li><NavLink to="/scoring/buy">Scoring</NavLink></li>
                         {/*<li><NavLink to="/trades/">Trades</NavLink></li>*/}
                         {/*<li><NavLink to="/market">Market data</NavLink></li>*/}
                         {/*<li><NavLink to="/tax">Tax report</NavLink></li>*/}
@@ -32,7 +32,7 @@ export class Application extends React.Component {
                     <Switch>
                         {/*<Route path="/overview" component={OverviewPage}/>*/}
                         <Route path="/account/*" component={AccountPage}/>
-                        <Route path="/scoring" component={ScoringList}/>
+                        <Route path="/scoring/:type" component={ScoringList}/>
                         <Redirect from="/" to="/account/"/>
                     </Switch>
                 </div>
