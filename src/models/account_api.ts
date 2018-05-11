@@ -1,9 +1,8 @@
 import validateResponse from './validate_response'
-
-const baseUri = 'http://localhost:8080/api'
+import ApiConfiguration from './api_configuration'
 
 export async function getAccountPositions() {
-    const requestUri = baseUri + '/account/positions/'
+    const requestUri = ApiConfiguration.baseUri + '/account/positions/'
 
     const response = await fetch(requestUri, {
         method: 'GET',
@@ -18,7 +17,7 @@ export async function getAccountPositions() {
 }
 
 export async function getAccountTransactions() {
-    const requestUri = baseUri + '/account/transactions/'
+    const requestUri = ApiConfiguration.baseUri + '/account/transactions/'
 
     const response = await fetch(requestUri, {
         method: 'GET',
@@ -33,7 +32,7 @@ export async function getAccountTransactions() {
 }
 
 export async function registerTransaction(transaction: any): Promise<number> {
-    const requestUri = baseUri + '/account/transactions/'
+    const requestUri = ApiConfiguration.baseUri + '/account/transactions/'
     
     const response = await fetch(requestUri, {
         method: 'POST',

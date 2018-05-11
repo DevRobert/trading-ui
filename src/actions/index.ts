@@ -15,8 +15,13 @@ export const REGISTER_TRANSACTION_REQUESTED = 'REGISTER_TRANSACTION_REQUESTED'
 export const REGISTER_TRANSACTION_SUCCEEDED = 'REGISTER_TRANSACTION_SUCCEEDED'
 export const REGISTER_TRANSACTION_FAILED = 'REGISTER_TRANSACTION_FAILED'
 
+export const FETCH_TRADES_REQUESTED = 'FETCH_TRADES_REQUESTED'
+export const FETCH_TRADES_SUCCEEDED = 'FETCH_TRADES_SUCCEEDED'
+export const FETCH_TRADES_FAILED = 'FETCH_TRADES_FAILED'
+
 import * as AccountApi from '../models/account_api'
 import * as ScoringApi from '../models/scoring_api'
+import * as TradesApi from '../models/trades_api';
 
 function fetchAccountPositionsRequested() {
     return {
@@ -156,6 +161,39 @@ export function registerTransaction() {
             dispatch(registerTransactionSucceeded(transationId))
         }).catch(error => {
             dispatch(registerTransactionFailed(error))
+        })
+    }
+}
+
+function fetchTradesRequested() {
+    return {
+        type: FETCH_TRADES_REQUESTED
+    }
+}
+
+function fetchTradesSuceeded(response: any) {
+    return {
+        type: FETCH_TRADES_SUCCEEDED,
+        trades: response.trades,
+        marketPricesDate: response.marketPricesDate
+    }
+}
+
+function fetchTradesFailed(error: any) {
+    return {
+        type: FETCH_TRADES_FAILED,
+        error
+    }
+}
+
+export function fetchTrades() {
+    return (dispatch: any) => {
+        dispatch(fetchTradesRequested())
+
+        TradesApi.getTrades().then((response: any) => {
+            dispatch(fetchTradesSuceeded(response))
+        }).catch((error: any) => {
+            dispatch(fetchTradesFailed(error))
         })
     }
 }

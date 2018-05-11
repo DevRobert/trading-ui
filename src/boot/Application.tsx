@@ -5,6 +5,7 @@ import { Route, Switch, NavLink, Redirect } from 'react-router-dom'
 import OverviewPage from '../components/overview/OverviewPage'
 import AccountPage from '../components/account/AccountPage';
 import ScoringList from '../containers/scoring/ScoringList'
+import TradesList from '../containers/trades/TradesList';
 
 export class Application extends React.Component {
     render() {
@@ -22,7 +23,7 @@ export class Application extends React.Component {
                         {/*<li><NavLink to="/strategy">Strategy</NavLink></li>*/}
                         <li><NavLink to="/account/">Account</NavLink></li>
                         <li><NavLink to="/scoring/buy">Scoring</NavLink></li>
-                        {/*<li><NavLink to="/trades/">Trades</NavLink></li>*/}
+                        <li><NavLink to="/trades/">Trades</NavLink></li>
                         {/*<li><NavLink to="/market">Market data</NavLink></li>*/}
                         {/*<li><NavLink to="/tax">Tax report</NavLink></li>*/}
                     </ul>
@@ -33,6 +34,7 @@ export class Application extends React.Component {
                         {/*<Route path="/overview" component={OverviewPage}/>*/}
                         <Route path="/account/*" component={AccountPage}/>
                         <Route path="/scoring/:type" component={ScoringList}/>
+                        <Route path="/trades/" component={TradesList}/>
                         <Redirect from="/" to="/account/"/>
                     </Switch>
                 </div>
