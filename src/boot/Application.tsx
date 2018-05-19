@@ -3,9 +3,10 @@ import * as React from 'react'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Route, Switch, NavLink, Redirect } from 'react-router-dom'
 import OverviewPage from '../components/overview/OverviewPage'
-import AccountPage from '../components/account/AccountPage';
+import AccountPage from '../components/account/AccountPage'
+import StrategyPage from '../containers/strategy/StrategyPage'
 import ScoringList from '../containers/scoring/ScoringList'
-import TradesList from '../containers/trades/TradesList';
+import TradesList from '../containers/trades/TradesList'
 
 export class Application extends React.Component {
     render() {
@@ -20,8 +21,8 @@ export class Application extends React.Component {
                 <nav className="navbar navbar-default">
                     <ul className="nav navbar-nav">
                         {/*<li><NavLink to="/">Overview</NavLink></li>*/}
-                        {/*<li><NavLink to="/strategy">Strategy</NavLink></li>*/}
                         <li><NavLink to="/account/">Account</NavLink></li>
+                        <li><NavLink to="/strategy">Strategy</NavLink></li>
                         <li><NavLink to="/scoring/buy">Scoring</NavLink></li>
                         <li><NavLink to="/trades/">Trades</NavLink></li>
                         {/*<li><NavLink to="/market">Market data</NavLink></li>*/}
@@ -33,6 +34,7 @@ export class Application extends React.Component {
                     <Switch>
                         {/*<Route path="/overview" component={OverviewPage}/>*/}
                         <Route path="/account/*" component={AccountPage}/>
+                        <Route path="/strategy" component={StrategyPage}/>
                         <Route path="/scoring/:type" component={ScoringList}/>
                         <Route path="/trades/" component={TradesList}/>
                         <Redirect from="/" to="/account/"/>

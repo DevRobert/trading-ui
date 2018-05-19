@@ -6,6 +6,10 @@ export const FETCH_ACCOUNT_TRANSACTIONS_REQUESTED = 'FETCH_ACCOUNT_TRANSACTIONS_
 export const FETCH_ACCOUNT_TRANSACTIONS_SUCCEEDED = 'FETCH_ACCOUNT_TRANSACTIONS_SUCCEEDED'
 export const FETCH_ACCOUNT_TRANSACTIONS_FAILED = 'FETCH_ACCOUNT_TRANSACTIONS_FAILED'
 
+export const FETCH_STRATEGY_PARAMETERS_REQUESTED = 'FETCH_STRATEGY_PARAMETERS_REQUESTED'
+export const FETCH_STRATEGY_PARAMETERS_SUCCEEDED = 'FETCH_STRATEGY_PARAMETERS_SUCCEEDED'
+export const FETCH_STRATEGY_PARAMETERS_FAILED = 'FETCH_STRATEGY_PARAMETERS_FAILED'
+
 export const FETCH_SCORES_REQUESTED = 'FETCH_SCORES_REQUESTED'
 export const FETCH_SCORES_SUCCEEDED = 'FETCH_SCORES_SUCCEEDED'
 export const FETCH_SCORES_FAILED = 'FETCH_SCORES_FAILED'
@@ -20,6 +24,7 @@ export const FETCH_TRADES_SUCCEEDED = 'FETCH_TRADES_SUCCEEDED'
 export const FETCH_TRADES_FAILED = 'FETCH_TRADES_FAILED'
 
 import * as AccountApi from '../models/account_api'
+import * as StrategyApi from '../models/strategy_api'
 import * as ScoringApi from '../models/scoring_api'
 import * as TradesApi from '../models/trades_api';
 
@@ -85,6 +90,39 @@ export function fetchAccountTransactions() {
             dispatch(fetchAccountTransactionsSucceeded(response.transactions))
         }).catch(error => {
             dispatch(fetchAccountTransactionsFailed(error))
+        })
+    }
+}
+
+function fetchStrategyParametersRequested() {
+    return {
+        type: FETCH_STRATEGY_PARAMETERS_REQUESTED
+    }
+}
+
+function fetchStrategyParametersSucceeded(trading: any, commission: any) {
+    return {
+        type: FETCH_STRATEGY_PARAMETERS_SUCCEEDED,
+        trading,
+        commission
+    }
+}
+
+function fetchStrategyParametersFailed(error: any) {
+    return {
+        type: FETCH_STRATEGY_PARAMETERS_FAILED,
+        error
+    }
+}
+
+export function fetchStrategyParameters() {
+    return (dispatch: any) => {
+        dispatch(fetchStrategyParametersRequested())
+
+        StrategyApi.getStrategyParameters().then((response: any) => {
+            dispatch(fetchStrategyParametersSucceeded(response.trading, response.commission))
+        }).catch((error: any) => {
+            dispatch(fetchStrategyParametersFailed(error))
         })
     }
 }
