@@ -1,17 +1,18 @@
 import * as React from 'react'
-import { Switch, Route, NavLink, Redirect } from 'react-router-dom'
+import { Switch, Route, Redirect } from 'react-router-dom'
 import AccountPositionList from '../../containers/account/AccountPositionList'
 import AccountTransactionList from '../../containers/account/AccountTransactionList'
 import RegisterTransactionForm from '../../containers/account/RegisterTransactionForm';
+import NavListItem from '../shared/NavListItem'
 
 class AccountPage extends React.Component {
     render() {
         return (
             <div>
                 <ul className="nav nav-tabs">
-                    <li><NavLink to="/account/positions/">Positions</NavLink></li>
-                    <li><NavLink to="/account/transactions/">Transactions</NavLink></li>
-                    <li><NavLink to="/account/registerTransaction">Register Transaction</NavLink></li>
+                    <NavListItem to="/account/positions/">Positions</NavListItem>
+                    <NavListItem to="/account/transactions/">Transactions</NavListItem>
+                    <NavListItem to="/account/registerTransaction">Register Transaction</NavListItem>
                 </ul>
 
                 <Switch>
