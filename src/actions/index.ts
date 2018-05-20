@@ -6,6 +6,15 @@ export const FETCH_ACCOUNT_TRANSACTIONS_REQUESTED = 'FETCH_ACCOUNT_TRANSACTIONS_
 export const FETCH_ACCOUNT_TRANSACTIONS_SUCCEEDED = 'FETCH_ACCOUNT_TRANSACTIONS_SUCCEEDED'
 export const FETCH_ACCOUNT_TRANSACTIONS_FAILED = 'FETCH_ACCOUNT_TRANSACTIONS_FAILED'
 
+export const FETCH_REGISTER_TRANSACTION_INSTRUMENTS_REQUESTED = 'FETCH_REGISTER_TRANSACTION_INSTRUMENTS_REQUESTED'
+export const FETCH_REGISTER_TRANSACTION_INSTRUMENTS_SUCCEEDED = 'FETCH_REGISTER_TRANSACTION_INSTRUMENTS_SUCCEEDED'
+export const FETCH_REGISTER_TRANSACTION_INSTRUMENTS_FAILED = 'FETCH_REGISTER_TRANSACTION_INSTRUMENTS_FAILED'
+
+export const UPDATE_REGISTER_TRANSACTION_FIELDS = 'UPDATE_REGISTER_TRANSACTION_FIELDS'
+export const REGISTER_TRANSACTION_REQUESTED = 'REGISTER_TRANSACTION_REQUESTED'
+export const REGISTER_TRANSACTION_SUCCEEDED = 'REGISTER_TRANSACTION_SUCCEEDED'
+export const REGISTER_TRANSACTION_FAILED = 'REGISTER_TRANSACTION_FAILED'
+
 export const FETCH_STRATEGY_PARAMETERS_REQUESTED = 'FETCH_STRATEGY_PARAMETERS_REQUESTED'
 export const FETCH_STRATEGY_PARAMETERS_SUCCEEDED = 'FETCH_STRATEGY_PARAMETERS_SUCCEEDED'
 export const FETCH_STRATEGY_PARAMETERS_FAILED = 'FETCH_STRATEGY_PARAMETERS_FAILED'
@@ -13,11 +22,6 @@ export const FETCH_STRATEGY_PARAMETERS_FAILED = 'FETCH_STRATEGY_PARAMETERS_FAILE
 export const FETCH_SCORES_REQUESTED = 'FETCH_SCORES_REQUESTED'
 export const FETCH_SCORES_SUCCEEDED = 'FETCH_SCORES_SUCCEEDED'
 export const FETCH_SCORES_FAILED = 'FETCH_SCORES_FAILED'
-
-export const UPDATE_REGISTER_TRANSACTION_FIELDS = 'UPDATE_REGISTER_TRANSACTION_FIELDS'
-export const REGISTER_TRANSACTION_REQUESTED = 'REGISTER_TRANSACTION_REQUESTED'
-export const REGISTER_TRANSACTION_SUCCEEDED = 'REGISTER_TRANSACTION_SUCCEEDED'
-export const REGISTER_TRANSACTION_FAILED = 'REGISTER_TRANSACTION_FAILED'
 
 export const FETCH_TRADES_REQUESTED = 'FETCH_TRADES_REQUESTED'
 export const FETCH_TRADES_SUCCEEDED = 'FETCH_TRADES_SUCCEEDED'
@@ -99,6 +103,81 @@ export function fetchAccountTransactions() {
     }
 }
 
+export function updateRegisterTransactionFields(fields: any) {
+    return {
+        type: UPDATE_REGISTER_TRANSACTION_FIELDS,
+        fields
+    }
+}
+
+function fetchRegisterTransactionInstrumentsRequested() {
+    return {
+        type: FETCH_REGISTER_TRANSACTION_INSTRUMENTS_REQUESTED
+    }
+}
+
+function fetchRegisterTransactonInstrumentsSuceeded(instruments: any) {
+    return {
+        type: FETCH_REGISTER_TRANSACTION_INSTRUMENTS_SUCCEEDED,
+        instruments
+    }
+}
+
+function fetchRegisterTransactionInstrumentsFailed(error: any) {
+    return {
+        type: FETCH_REGISTER_TRANSACTION_INSTRUMENTS_FAILED,
+        error
+    }
+}
+
+export function fetchRegisterTransactionInstruments() {
+    return (dispatch: any) => {
+        dispatch(fetchRegisterTransactionInstrumentsRequested())
+
+        MarketApi.getInstruments().then((response: any) => {
+            dispatch(fetchRegisterTransactonInstrumentsSuceeded(response.instruments))
+        }).catch((error: any) => {
+            dispatch(fetchRegisterTransactionInstrumentsFailed(error))
+        })
+    }
+}
+
+function registerTransactionRequested() {
+    return {
+        type: REGISTER_TRANSACTION_REQUESTED
+    }
+}
+
+function registerTransactionSucceeded(transactionId: number) {
+    return {
+        type: REGISTER_TRANSACTION_SUCCEEDED,
+        transactionId
+    }
+}
+
+function registerTransactionFailed(error: any) {
+    return {
+        type: REGISTER_TRANSACTION_FAILED,
+        error
+    }
+}
+
+export function registerTransaction() {
+    return (dispatch: any, getState: any) => {
+        dispatch(registerTransactionRequested())
+
+        const transation = {
+            ...getState().account.registerTransaction.fields
+        }
+
+        AccountApi.registerTransaction(transation).then(transationId => {
+            dispatch(registerTransactionSucceeded(transationId))
+        }).catch(error => {
+            dispatch(registerTransactionFailed(error))
+        })
+    }
+}
+
 function fetchStrategyParametersRequested() {
     return {
         type: FETCH_STRATEGY_PARAMETERS_REQUESTED
@@ -162,49 +241,6 @@ export function fetchScores(type: string) {
         }).catch(error => [
             dispatch(fetchScoresFailed(error))
         ])
-    }
-}
-
-export function updateRegisterTransactionFields(fields: any) {
-    return {
-        type: UPDATE_REGISTER_TRANSACTION_FIELDS,
-        fields
-    }
-}
-
-function registerTransactionRequested() {
-    return {
-        type: REGISTER_TRANSACTION_REQUESTED
-    }
-}
-
-function registerTransactionSucceeded(transactionId: number) {
-    return {
-        type: REGISTER_TRANSACTION_SUCCEEDED,
-        transactionId
-    }
-}
-
-function registerTransactionFailed(error: any) {
-    return {
-        type: REGISTER_TRANSACTION_FAILED,
-        error
-    }
-}
-
-export function registerTransaction() {
-    return (dispatch: any, getState: any) => {
-        dispatch(registerTransactionRequested())
-
-        const transation = {
-            ...getState().account.registerTransaction.fields
-        }
-
-        AccountApi.registerTransaction(transation).then(transationId => {
-            dispatch(registerTransactionSucceeded(transationId))
-        }).catch(error => {
-            dispatch(registerTransactionFailed(error))
-        })
     }
 }
 

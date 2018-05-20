@@ -33,6 +33,8 @@ export async function getAccountTransactions() {
 
 export async function registerTransaction(transaction: any): Promise<number> {
     const requestUri = ApiConfiguration.baseUri + '/account/transactions/'
+
+    let isin = transaction.isin.split(' ')[0] // Remove typeahead text after isin
     
     const response = await fetch(requestUri, {
         method: 'POST',
@@ -41,7 +43,8 @@ export async function registerTransaction(transaction: any): Promise<number> {
             'Content-Type': 'application/json'
         }),
         body: JSON.stringify({
-            ...transaction
+            ...transaction,
+            isin
         })
     })
 

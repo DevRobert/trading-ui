@@ -1,4 +1,6 @@
 import * as React from 'react'
+import { Typeahead } from 'react-bootstrap-typeahead'
+const { Token } = require('react-bootstrap-typeahead')
 
 interface RegisterTransactionFormProps {
     submitting: boolean,
@@ -10,8 +12,15 @@ interface RegisterTransactionFormProps {
         totalPrice: number,
         commission: number
     },
+    instruments: InstrumentProps[],
     handleFieldsChanged: (fields: any) => void,
+    loadInstruments: () => void,
     submit: () => void
+}
+
+interface InstrumentProps {
+    isin: string,
+    name: string
 }
 
 class RegisterTransactionForm extends React.Component {
@@ -21,15 +30,19 @@ class RegisterTransactionForm extends React.Component {
         super(props)
     }
 
+    componentDidMount() {
+        this.props.loadInstruments()
+    }
+
     handleTransactionTypeChange(event: React.ChangeEvent<HTMLSelectElement>) {
         this.props.handleFieldsChanged({
             transactionType: event.target.value
         })
     }
 
-    handleIsinChange(event: React.ChangeEvent<HTMLInputElement>) {
+    handleIsinChange(text: string) {
         this.props.handleFieldsChanged({
-            isin: event.target.value
+            isin: text
         })
     }
 
@@ -57,6 +70,32 @@ class RegisterTransactionForm extends React.Component {
     }
 
     render() {
+        let options = this.props.instruments
+
+        let typeaheadProps = {
+            labelKey: 'label',
+            placeholder: 'Select instrument...',
+            options: this.props.instruments.map(instrument => {
+                return {
+                    label: instrument.isin + ' (' + instrument.name + ')'
+                }
+            }),
+            onInputChange: (text: string) => {
+                this.handleIsinChange(text)
+            },
+            onChange: (selectedInstruments: any) => {
+                if(selectedInstruments.length == 0) {
+                    return
+                }
+
+                this.handleIsinChange(selectedInstruments[0].label)
+            }
+        }
+
+        const typeahead = (
+            <Typeahead {...typeaheadProps} />
+        )
+
         return (
             <div>
                 <h1>Register Transaction</h1>
@@ -83,7 +122,7 @@ class RegisterTransactionForm extends React.Component {
 
                         <div className="form-group">
                             <label htmlFor="RegisterTransaction_IsinInput">ISIN:</label>
-                            <input type="text" className="form-control" id="RegisterTransaction_IsinInput" value={this.props.fields.isin} onChange={(e) => this.handleIsinChange(e)} />
+                            {typeahead}
                         </div>
 
                         <div className="form-group">
