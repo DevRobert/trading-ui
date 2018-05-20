@@ -7,6 +7,7 @@ interface RegisterTransactionFormProps {
     submitting: boolean,
     errorMessage: string,
     fields: {
+        date: string,
         transactionType: string,
         isin: string,
         quantity: number,
@@ -33,6 +34,12 @@ class RegisterTransactionForm extends React.Component {
 
     componentDidMount() {
         this.props.loadInstruments()
+    }
+
+    handleDateChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.props.handleFieldsChanged({
+            date: event.target.value
+        })
     }
 
     handleTransactionTypeChange(event: React.ChangeEvent<HTMLSelectElement>) {
@@ -115,6 +122,11 @@ class RegisterTransactionForm extends React.Component {
 
                 <form onSubmit={(e) => this.handleFormSubmit(e)}>
                     <fieldset disabled={this.props.submitting}>
+                        <div className="form-group">
+                            <label htmlFor="RegisterTransaction_DateInput">Date:</label>
+                            <input type="text" className="form-control" id="RegisterTransaction_DateInput" value={this.props.fields.date} onChange={(e) => this.handleDateChange(e)} />
+                        </div>
+
                         <div className="form-group">
                             <label htmlFor="RegisterTransaction_TransactionTypeSelect">Type:</label>
 
