@@ -4,6 +4,7 @@ import { updateRegisterTransactionFields, registerTransaction, fetchRegisterTran
 
 const mapStateToProps = (state: any) => {
     return {
+        succeeded: state.account.registerTransaction.succeeded,
         submitting: state.account.registerTransaction.submitting,
         errorMessage: state.account.registerTransaction.errorMessage,
         fields: state.account.registerTransaction.fields,

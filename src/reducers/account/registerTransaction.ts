@@ -1,6 +1,7 @@
 import { UPDATE_REGISTER_TRANSACTION_FIELDS, REGISTER_TRANSACTION_REQUESTED, REGISTER_TRANSACTION_SUCCEEDED, REGISTER_TRANSACTION_FAILED, FETCH_REGISTER_TRANSACTION_INSTRUMENTS_FAILED, FETCH_REGISTER_TRANSACTION_INSTRUMENTS_REQUESTED, FETCH_REGISTER_TRANSACTION_INSTRUMENTS_SUCCEEDED } from "../../actions";
 
 const defaultState = {
+    succeeded: false,
     submitting: false,
     errorMessage: "",
     fields: {
@@ -30,6 +31,7 @@ const registerTransactionReducer = (state = defaultState, action: any) => {
         case REGISTER_TRANSACTION_REQUESTED:
             return {
                 ...state,
+                succeeded: false,
                 submitting: true,
                 errorMessage: ""
             }
@@ -37,6 +39,7 @@ const registerTransactionReducer = (state = defaultState, action: any) => {
         case REGISTER_TRANSACTION_SUCCEEDED:
             return {
                 ...state,
+                succeeded: true,
                 submitting: false
             }
 

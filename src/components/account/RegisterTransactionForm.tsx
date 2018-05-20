@@ -3,6 +3,7 @@ import { Typeahead } from 'react-bootstrap-typeahead'
 const { Token } = require('react-bootstrap-typeahead')
 
 interface RegisterTransactionFormProps {
+    succeeded: boolean,
     submitting: boolean,
     errorMessage: string,
     fields: {
@@ -106,6 +107,10 @@ class RegisterTransactionForm extends React.Component {
 
                 { this.props.errorMessage && 
                     <p className="alert alert-danger">{this.props.errorMessage}</p>
+                }
+
+                { this.props.succeeded &&
+                    <p className="alert alert-success">The transaction has been registered.</p>
                 }
 
                 <form onSubmit={(e) => this.handleFormSubmit(e)}>
