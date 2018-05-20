@@ -15,7 +15,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => {
     return {
-        loadScores: function(type: string) {
+        loadScores: (type: string) => {
             dispatch(fetchScores(type))
         }
     }

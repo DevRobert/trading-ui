@@ -7,6 +7,7 @@ import AccountPage from '../components/account/AccountPage'
 import StrategyPage from '../containers/strategy/StrategyPage'
 import ScoringList from '../containers/scoring/ScoringList'
 import TradesList from '../containers/trades/TradesList'
+import InstrumentList from '../containers/market/InstrumentList'
 
 export class Application extends React.Component {
     render() {
@@ -25,7 +26,7 @@ export class Application extends React.Component {
                         <li><NavLink to="/strategy">Strategy</NavLink></li>
                         <li><NavLink to="/scoring/buy">Scoring</NavLink></li>
                         <li><NavLink to="/trades/">Trades</NavLink></li>
-                        {/*<li><NavLink to="/market">Market data</NavLink></li>*/}
+                        <li><NavLink to="/market/">Market</NavLink></li>
                         {/*<li><NavLink to="/tax">Tax report</NavLink></li>*/}
                     </ul>
                 </nav>
@@ -37,6 +38,7 @@ export class Application extends React.Component {
                         <Route path="/strategy" component={StrategyPage}/>
                         <Route path="/scoring/:type" component={ScoringList}/>
                         <Route path="/trades/" component={TradesList}/>
+                        <Route path="/market/" component={InstrumentList}/>
                         <Redirect from="/" to="/account/"/>
                     </Switch>
                 </div>

@@ -23,10 +23,15 @@ export const FETCH_TRADES_REQUESTED = 'FETCH_TRADES_REQUESTED'
 export const FETCH_TRADES_SUCCEEDED = 'FETCH_TRADES_SUCCEEDED'
 export const FETCH_TRADES_FAILED = 'FETCH_TRADES_FAILED'
 
+export const FETCH_INSTRUMENTS_REQUESTED = 'FETCH_INSTRUMENTS_REQUESTED'
+export const FETCH_INSTRUMENTS_SUCCEEDED = 'FETCH_INSTRUMENTS_SUCCEEDED'
+export const FETCH_INSTRUMENTS_FAILED = 'FETCH_INSTRUMENTS_FAILED'
+
 import * as AccountApi from '../models/account_api'
 import * as StrategyApi from '../models/strategy_api'
 import * as ScoringApi from '../models/scoring_api'
-import * as TradesApi from '../models/trades_api';
+import * as TradesApi from '../models/trades_api'
+import * as MarketApi from '../models/market_api'
 
 function fetchAccountPositionsRequested() {
     return {
@@ -232,6 +237,39 @@ export function fetchTrades() {
             dispatch(fetchTradesSuceeded(response))
         }).catch((error: any) => {
             dispatch(fetchTradesFailed(error))
+        })
+    }
+}
+
+function fetchInstrumentsRequested() {
+    return {
+        type: FETCH_INSTRUMENTS_REQUESTED
+    }
+}
+
+function fetchInstrumentsSucceeded(date: string, instruments: any) {
+    return {
+        type: FETCH_INSTRUMENTS_SUCCEEDED,
+        date,
+        instruments
+    }
+}
+
+function fetchInstrumentsFailed(error: any) {
+    return {
+        type: FETCH_INSTRUMENTS_FAILED,
+        error
+    }
+}
+
+export function fetchInstruments() {
+    return (dispatch: any) => {
+        dispatch(fetchInstrumentsRequested())
+
+        MarketApi.getInstruments().then((response: any) => {
+            dispatch(fetchInstrumentsSucceeded(response.date, response.instruments))
+        }).catch((error: any) => {
+            dispatch(fetchInstrumentsFailed(error))
         })
     }
 }
