@@ -15,7 +15,8 @@ interface TransactionProps {
     quantity: number,
     totalPrice: number,
     commission: number,
-    marketPrice: number
+    marketPrice: number,
+    amount: number
 }
 
 class AccountTransactionList extends React.Component {
@@ -48,13 +49,13 @@ class AccountTransactionList extends React.Component {
                     <td>{transaction.isin}</td>
                     <td>{transaction.name}</td>
                     <td className="text-right">
-                        {new Intl.NumberFormat('en-GB', {
+                        {transaction.quantity && new Intl.NumberFormat('en-GB', {
                             minimumFractionDigits: 0,
                             maximumFractionDigits: 0
                         }).format(transaction.quantity)}
                     </td>
                     <td className="text-right">
-                        {new Intl.NumberFormat('en-GB', {
+                        {transaction.marketPrice && new Intl.NumberFormat('en-GB', {
                             style: 'currency',
                             currency: 'EUR',
                             minimumFractionDigits: 2,
@@ -62,7 +63,7 @@ class AccountTransactionList extends React.Component {
                         }).format(transaction.marketPrice)}
                     </td>
                     <td className="text-right">
-                        {new Intl.NumberFormat('en-GB', {
+                        {transaction.totalPrice && new Intl.NumberFormat('en-GB', {
                             style: 'currency',
                             currency: 'EUR',
                             minimumFractionDigits: 2,
@@ -70,12 +71,20 @@ class AccountTransactionList extends React.Component {
                         }).format(transaction.totalPrice)}
                     </td>
                     <td className="text-right">
-                        {new Intl.NumberFormat('en-GB', {
+                        {transaction.commission && new Intl.NumberFormat('en-GB', {
                             style: 'currency',
                             currency: 'EUR',
                             minimumFractionDigits: 2,
                             maximumFractionDigits: 2
                         }).format(transaction.commission)}
+                    </td>
+                    <td className="text-right">
+                        {transaction.amount && new Intl.NumberFormat('en-GB', {
+                            style: 'currency',
+                            currency: 'EUR',
+                            minimumFractionDigits: 2,
+                            maximumFractionDigits: 2
+                        }).format(transaction.amount)}
                     </td>
                 </tr>
             )
@@ -96,6 +105,7 @@ class AccountTransactionList extends React.Component {
                             <th className="text-right">Market price</th>
                             <th className="text-right">Total price</th>
                             <th className="text-right">Commission</th>
+                            <th className="text-right">Dividend amount</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -12,7 +12,14 @@ interface RegisterTransactionFormProps {
         isin: string,
         quantity: number,
         totalPrice: number,
-        commission: number
+        commission: number,
+        amount: number
+    },
+    show: {
+        quantity: boolean,
+        totalPrice: boolean,
+        commission: boolean,
+        amount: boolean
     },
     instruments: InstrumentProps[],
     handleFieldsChanged: (fields: any) => void,
@@ -69,6 +76,12 @@ class RegisterTransactionForm extends React.Component {
     handleCommissionChange(event: React.ChangeEvent<HTMLInputElement>) {
         this.props.handleFieldsChanged({
             commission: event.target.value
+        })
+    }
+
+    handleAmountChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.props.handleFieldsChanged({
+            amount: event.target.value
         })
     }
 
@@ -134,6 +147,7 @@ class RegisterTransactionForm extends React.Component {
                                 <option value="">Select Type:</option>
                                 <option value="Buy">Buy</option>
                                 <option value="Sell">Sell</option>
+                                <option value="Dividend">Dividend</option>
                             </select>
                         </div>
 
@@ -142,20 +156,33 @@ class RegisterTransactionForm extends React.Component {
                             {typeahead}
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="RegisterTransaction_QuantityInput">Quantity:</label>
-                            <input type="text" className="form-control" id="RegisterTransaction_QuantityInput" value={this.props.fields.quantity} onChange={(e) => this.handleQuantityChange(e)} />
-                        </div>
+                        {this.props.show.quantity && (
+                            <div className="form-group">
+                                <label htmlFor="RegisterTransaction_QuantityInput">Quantity:</label>
+                                <input type="text" className="form-control" id="RegisterTransaction_QuantityInput" value={this.props.fields.quantity} onChange={(e) => this.handleQuantityChange(e)} />
+                            </div>
+                        )}
 
-                        <div className="form-group">
-                            <label htmlFor="RegisterTransaction_TotalPriceInput">Total price:</label>
-                            <input type="text" className="form-control" id="RegisterTransaction_TotalPriceInput" value={this.props.fields.totalPrice} onChange={(e) => this.handleTotalPriceChange(e)} />
-                        </div>
+                        {this.props.show.totalPrice && (
+                            <div className="form-group">
+                                <label htmlFor="RegisterTransaction_TotalPriceInput">Total price:</label>
+                                <input type="text" className="form-control" id="RegisterTransaction_TotalPriceInput" value={this.props.fields.totalPrice} onChange={(e) => this.handleTotalPriceChange(e)} />
+                            </div>
+                        )}
 
-                        <div className="form-group">
+                        {this.props.show.commission && (
+                            <div className="form-group">
                             <label htmlFor="RegisterTransaction_CommissionInput">Commission:</label>
                             <input type="text" className="form-control" id="RegisterTransaction_CommissionInput" value={this.props.fields.commission} onChange={(e) => this.handleCommissionChange(e)} />
-                        </div>
+                            </div>
+                        )}
+
+                        {this.props.show.amount && (
+                            <div className="form-group">
+                                <label htmlFor="RegisterTransaction_AmountInput">Amount:</label>
+                                <input type="text" className="form-control" id="RegisterTransaction_AmountInput" value={this.props.fields.amount} onChange={(e) => this.handleAmountChange(e)} />
+                            </div>
+                        )}
 
                         <button type="submit" className="btn btn-success">Register transaction</button>
                     </fieldset>

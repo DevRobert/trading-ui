@@ -8,6 +8,7 @@ const mapStateToProps = (state: any) => {
         submitting: state.account.registerTransaction.submitting,
         errorMessage: state.account.registerTransaction.errorMessage,
         fields: state.account.registerTransaction.fields,
+        show: state.account.registerTransaction.show,
         instruments: state.account.registerTransaction.instruments
     }
 }

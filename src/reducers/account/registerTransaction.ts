@@ -16,7 +16,14 @@ const defaultState = {
         isin: "DE00",
         quantity: 1,
         totalPrice: 0.0,
-        commission: 0.0
+        commission: 0.0,
+        amount: 0.0
+    },
+    show: {
+        quantity: true,
+        totalPrice: true,
+        commission: true,
+        amount: false
     },
     instruments: [{
         isin: "A",
@@ -27,13 +34,34 @@ const defaultState = {
 const registerTransactionReducer = (state = defaultState, action: any) => {
     switch(action.type) {
         case UPDATE_REGISTER_TRANSACTION_FIELDS:
-            return {
+            let newState = {
                 ...state,
                 fields: {
                     ...state.fields,
                     ...action.fields,
                 }
             }
+
+            if(newState.fields.transactionType === 'Dividend') {
+                newState.show = {
+                    ...newState.show,
+                    quantity: false,
+                    totalPrice: false,
+                    commission: false,
+                    amount: true
+                }
+            }
+            else {
+                newState.show = {
+                    ...newState.show,
+                    quantity: true,
+                    totalPrice: true,
+                    commission: true,
+                    amount: false
+                }
+            }
+
+            return newState
 
         case REGISTER_TRANSACTION_REQUESTED:
             return {
