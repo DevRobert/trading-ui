@@ -21,7 +21,9 @@ interface SummaryProps {
     totalStocksQuantity: number,
     availableMoney: number,
     totalStocksMarketPrice: number,
-    totalBalance: number
+    totalBalance: number,
+    reservedTaxes: number,
+    paidTaxes: number
 }
 
 class AccountPositionList extends React.Component {
@@ -118,7 +120,7 @@ class AccountPositionList extends React.Component {
                             </td>
                         </tr>
                         <tr>
-                            <td>Available money</td>
+                            <td>Reserved taxes</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -128,11 +130,25 @@ class AccountPositionList extends React.Component {
                                     currency: 'EUR',
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
-                                }).format(summary.availableMoney)}
+                                }).format(summary.reservedTaxes)}
                             </td>
                         </tr>
                         <tr>
-                            <td>Total balance</td>
+                            <td>Paid taxes</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td className="text-right">
+                                {new Intl.NumberFormat('en-GB', {
+                                    style: 'currency',
+                                    currency: 'EUR',
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                }).format(summary.paidTaxes)}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Total balance (after tax)</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
                             <td>&nbsp;</td>
@@ -143,6 +159,20 @@ class AccountPositionList extends React.Component {
                                     minimumFractionDigits: 2,
                                     maximumFractionDigits: 2
                                 }).format(summary.totalBalance)}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Available money (after tax)</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td>&nbsp;</td>
+                            <td className="text-right">
+                                {new Intl.NumberFormat('en-GB', {
+                                    style: 'currency',
+                                    currency: 'EUR',
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2
+                                }).format(summary.availableMoney)}
                             </td>
                         </tr>
                     </tbody>

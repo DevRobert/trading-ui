@@ -148,6 +148,7 @@ class RegisterTransactionForm extends React.Component {
                                 <option value="Buy">Buy</option>
                                 <option value="Sell">Sell</option>
                                 <option value="Dividend">Dividend</option>
+                                <option value="TaxPayment">Tax Payment</option>
                             </select>
                         </div>
 

@@ -31,6 +31,10 @@ export const FETCH_INSTRUMENTS_REQUESTED = 'FETCH_INSTRUMENTS_REQUESTED'
 export const FETCH_INSTRUMENTS_SUCCEEDED = 'FETCH_INSTRUMENTS_SUCCEEDED'
 export const FETCH_INSTRUMENTS_FAILED = 'FETCH_INSTRUMENTS_FAILED'
 
+export const FETCH_TAX_REPORT_REQUESTED = 'FETCH_TAX_REPORT_REQUESTED'
+export const FETCH_TAX_REPORT_SUCEEDED = 'FETCH_TAX_REPORT_SUCEEDED'
+export const FETCH_TAX_REPORT_FAILED = 'FETCH_TAX_REPORT_FAILED'
+
 import * as AccountApi from '../models/account_api'
 import * as StrategyApi from '../models/strategy_api'
 import * as ScoringApi from '../models/scoring_api'
@@ -306,6 +310,38 @@ export function fetchInstruments() {
             dispatch(fetchInstrumentsSucceeded(response.date, response.instruments))
         }).catch((error: any) => {
             dispatch(fetchInstrumentsFailed(error))
+        })
+    }
+}
+
+function fetchTaxReportRequested() {
+    return {
+        type: FETCH_TAX_REPORT_REQUESTED
+    }
+}
+
+function fetchTaxReportSuceeded(taxPeriods: any) {
+    return {
+        type: FETCH_TAX_REPORT_SUCEEDED,
+        taxPeriods
+    }
+}
+
+function fetchTaxReportFailed(error: any) {
+    return {
+        type: FETCH_TAX_REPORT_FAILED,
+        error
+    }
+}
+
+export function fetchTaxReport() {
+    return (dispatch: any) => {
+        dispatch(fetchTaxReportRequested())
+
+        AccountApi.getTaxReport().then((response: any) => {
+            dispatch(fetchTaxReportSuceeded(response.taxPeriods))
+        }).catch((error: any) => {
+            dispatch(fetchTaxReportFailed(error))
         })
     }
 }
