@@ -13,13 +13,22 @@ interface RegisterTransactionFormProps {
         quantity: number,
         totalPrice: number,
         commission: number,
-        amount: number
+        amount: number,
+        profitCategory: string,
+        taxPeriodYear: number,
+        taxedProfit: number,
+        paidTaxes: number
     },
     show: {
+        isin: boolean,
         quantity: boolean,
         totalPrice: boolean,
         commission: boolean,
-        amount: boolean
+        amount: boolean,
+        taxPeriodYear: boolean,
+        profitCategory: boolean,
+        taxedProfit: boolean,
+        paidTaxes: boolean
     },
     instruments: InstrumentProps[],
     handleFieldsChanged: (fields: any) => void,
@@ -82,6 +91,30 @@ class RegisterTransactionForm extends React.Component {
     handleAmountChange(event: React.ChangeEvent<HTMLInputElement>) {
         this.props.handleFieldsChanged({
             amount: event.target.value
+        })
+    }
+
+    handleProfitCategoryChange(event: React.ChangeEvent<HTMLSelectElement>) {
+        this.props.handleFieldsChanged({
+            profitCategory: event.target.value
+        })
+    }
+
+    handleTaxPeriodYearChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.props.handleFieldsChanged({
+            taxPeriodYear: event.target.value
+        })
+    }
+
+    handleTaxedProfitChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.props.handleFieldsChanged({
+            taxedProfit: event.target.value
+        })
+    }
+
+    handlePaidTaxesChange(event: React.ChangeEvent<HTMLInputElement>) {
+        this.props.handleFieldsChanged({
+            paidTaxes: event.target.value
         })
     }
 
@@ -152,10 +185,12 @@ class RegisterTransactionForm extends React.Component {
                             </select>
                         </div>
 
-                        <div className="form-group">
-                            <label htmlFor="RegisterTransaction_IsinInput">ISIN:</label>
-                            {typeahead}
-                        </div>
+                        {this.props.show.isin && (
+                            <div className="form-group">
+                                <label htmlFor="RegisterTransaction_IsinInput">ISIN:</label>
+                                {typeahead}
+                            </div>
+                        )}
 
                         {this.props.show.quantity && (
                             <div className="form-group">
@@ -173,8 +208,8 @@ class RegisterTransactionForm extends React.Component {
 
                         {this.props.show.commission && (
                             <div className="form-group">
-                            <label htmlFor="RegisterTransaction_CommissionInput">Commission:</label>
-                            <input type="text" className="form-control" id="RegisterTransaction_CommissionInput" value={this.props.fields.commission} onChange={(e) => this.handleCommissionChange(e)} />
+                                <label htmlFor="RegisterTransaction_CommissionInput">Commission:</label>
+                                <input type="text" className="form-control" id="RegisterTransaction_CommissionInput" value={this.props.fields.commission} onChange={(e) => this.handleCommissionChange(e)} />
                             </div>
                         )}
 
@@ -182,6 +217,39 @@ class RegisterTransactionForm extends React.Component {
                             <div className="form-group">
                                 <label htmlFor="RegisterTransaction_AmountInput">Amount:</label>
                                 <input type="text" className="form-control" id="RegisterTransaction_AmountInput" value={this.props.fields.amount} onChange={(e) => this.handleAmountChange(e)} />
+                            </div>
+                        )}
+
+                        {this.props.show.profitCategory && (
+                            <div className="form-group">
+                                <label htmlFor="RegisterTransaction_ProfitCategorySelect">Profit Category:</label>
+
+                                <select className="form-control" id="RegisterTransaction_ProfitCategorySelect" value={this.props.fields.profitCategory} onChange={(e) => this.handleProfitCategoryChange(e)}>
+                                    <option value="">Select Type:</option>
+                                    <option value="Sale">Sale</option>
+                                    <option value="Dividends">Dividends</option>
+                                </select>
+                            </div>
+                        )}
+
+                        {this.props.show.taxPeriodYear && (
+                            <div className="form-group">
+                                <label htmlFor="RegisterTransaction_TaxPeriodYear">Tax Period Year:</label>
+                                <input type="text" className="form-control" id="RegisterTransaction_TaxPeriodYear" value={this.props.fields.taxPeriodYear} onChange={(e) => this.handleTaxPeriodYearChange(e)} />
+                            </div>
+                        )}
+
+                        {this.props.show.taxedProfit && (
+                            <div className="form-group">
+                                <label htmlFor="RegisterTransaction_TaxedProfit">Taxed Profit:</label>
+                                <input type="text" className="form-control" id="RegisterTransaction_TaxedProfit" value={this.props.fields.taxedProfit} onChange={(e) => this.handleTaxedProfitChange(e)} />
+                            </div>
+                        )}
+
+                        {this.props.show.paidTaxes && (
+                            <div className="form-group">
+                                <label htmlFor="RegisterTransaction_PaidTaxes">Paid Taxes:</label>
+                                <input type="text" className="form-control" id="RegisterTransaction_PaidTaxes" value={this.props.fields.paidTaxes} onChange={(e) => this.handlePaidTaxesChange(e)} />
                             </div>
                         )}
 

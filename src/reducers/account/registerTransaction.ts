@@ -17,13 +17,22 @@ const defaultState = {
         quantity: 1,
         totalPrice: 0.0,
         commission: 0.0,
-        amount: 0.0
+        amount: 0.0,
+        profitCategory: "Sale",
+        taxPeriodYear: new Date().getFullYear(),
+        taxedProfit: 0.0,
+        paidTaxes: 0.0
     },
     show: {
+        isin: true,
         quantity: true,
         totalPrice: true,
         commission: true,
-        amount: false
+        amount: false,
+        profitCategory: false,
+        taxPeriodYear: false,
+        taxedProfit: false,
+        paidTaxes: false
     },
     instruments: [{
         isin: "A",
@@ -45,19 +54,43 @@ const registerTransactionReducer = (state = defaultState, action: any) => {
             if(newState.fields.transactionType === 'Dividend') {
                 newState.show = {
                     ...newState.show,
+                    isin: true,
                     quantity: false,
                     totalPrice: false,
                     commission: false,
-                    amount: true
+                    amount: true,
+                    taxPeriodYear: false,
+                    profitCategory: false,
+                    taxedProfit: false,
+                    paidTaxes: false
+                }
+            }
+            else if(newState.fields.transactionType === 'TaxPayment') {
+                newState.show = {
+                    ...newState.show,
+                    isin: false,
+                    quantity: false,
+                    totalPrice: false,
+                    commission: false,
+                    amount: false,
+                    taxPeriodYear: true,
+                    profitCategory: true,
+                    taxedProfit: true,
+                    paidTaxes: true
                 }
             }
             else {
                 newState.show = {
                     ...newState.show,
+                    isin: true,
                     quantity: true,
                     totalPrice: true,
                     commission: true,
-                    amount: false
+                    amount: false,
+                    taxPeriodYear: false,
+                    profitCategory: false,
+                    taxedProfit: false,
+                    paidTaxes: false
                 }
             }
 
